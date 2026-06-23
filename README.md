@@ -35,8 +35,8 @@ void vr_menu_set_position(VRMenu* menu, float x, float y, float z);
 ## Build
 
 Builds automatically via GitHub Actions on every push:
-- Windows: `mylib.dll`
-- Linux: `libmylib.so`
+- Windows: `vrmenu.dll`
+- Linux: `libvrmenu.so`
 
 Download artifacts from the [Actions](../../actions) tab.
 
