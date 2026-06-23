@@ -1,0 +1,67 @@
+name: Build C++ Library
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Configure CMake (MSVC)
+        run: |
+          mkdir build
+          cd build
+          cmake .. -G "Visual Studio 17 2022"
+      
+      - name: Build (Release)
+        run: |
+          cd build
+          cmake --build . --config Release
+      
+      - name: Run tests
+        run: |
+          cd build
+          Release\test_app.exe
+      
+      - name: Upload DLL artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: vrmenu-windows
+          path: build/Release/vrmenu.dll
+
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y build-essential cmake
+      
+      - name: Configure CMake
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+      
+      - name: Build (Release)
+        run: |
+          cd build
+          cmake --build . --config Release
+      
+      - name: Run tests
+        run: |
+          cd build
+          ./test_app
+      
+      - name: Upload .so artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: vrmenu-linux
+          path: build/libvrmenu.so
