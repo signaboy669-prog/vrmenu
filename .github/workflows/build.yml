@@ -10,7 +10,7 @@ jobs:
   build-windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
       - name: Configure CMake (MSVC)
         run: |
@@ -29,7 +29,7 @@ jobs:
           Release\test_app.exe
       
       - name: Upload DLL artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: vrmenu-windows
           path: build/Release/vrmenu.dll
@@ -37,7 +37,7 @@ jobs:
   build-linux:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
       - name: Install dependencies
         run: |
@@ -61,7 +61,7 @@ jobs:
           ./test_app
       
       - name: Upload .so artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: vrmenu-linux
           path: build/libvrmenu.so
